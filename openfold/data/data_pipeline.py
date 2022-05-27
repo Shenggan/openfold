@@ -391,7 +391,7 @@ class AlignmentRunner:
     ):
         """Runs alignment tools on a sequence"""
         if(self.jackhmmer_uniref90_runner is not None):
-            uniref90_out_path = os.path.join(output_dir, "uniref90_hits.a3m")
+            uniref90_out_path = os.path.join(output_dir, "uniref90_hits.sto")
 
             jackhmmer_uniref90_result = run_msa_tool(
                 msa_runner=self.jackhmmer_uniref90_runner,
@@ -428,7 +428,7 @@ class AlignmentRunner:
                     )
 
         if(self.jackhmmer_mgnify_runner is not None):
-            mgnify_out_path = os.path.join(output_dir, "mgnify_hits.a3m")
+            mgnify_out_path = os.path.join(output_dir, "mgnify_hits.sto")
             jackhmmer_mgnify_result = run_msa_tool(
                 msa_runner=self.jackhmmer_mgnify_runner,
                 fasta_path=fasta_path,

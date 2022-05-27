@@ -24,6 +24,8 @@ import random
 import sys
 import time
 import torch
+import tempfile
+import contextlib
 
 from openfold.config import model_config
 from openfold.data import (
@@ -45,6 +47,12 @@ from openfold.utils.tensor_utils import (
 
 from scripts.utils import add_data_args
 
+@contextlib.contextmanager
+def temp_fasta_file(fasta_str: str):
+    with tempfile.NamedTemporaryFile('w', suffix='.fasta') as fasta_file:
+        fasta_file.write(fasta_str)
+        fasta_file.seek(0)
+        yield fasta_file.name
 
 def main(args):
     config = model_config(args.model_name)
@@ -158,15 +166,16 @@ def main(args):
             continue
         
         for tag, seq in zip(tags, seqs):
-            tag, seq = tags[0], seqs[0]
             local_alignment_dir = os.path.join(alignment_dir, tag)
             if(args.use_precomputed_alignments is None):
                 if not os.path.exists(local_alignment_dir):
                     os.makedirs(local_alignment_dir)
                 
-                alignment_runner.run(
-                    fasta_path, local_alignment_dir
-                )
+                chain_fasta_str = f'>chain_{tag}\n{seq}\n'
+                with temp_fasta_file(chain_fasta_str) as chain_fasta_path:
+                    alignment_runner.run(
+                        chain_fasta_path, local_alignment_dir
+                    )
        
         if(is_multimer):
             local_alignment_dir = alignment_dir
