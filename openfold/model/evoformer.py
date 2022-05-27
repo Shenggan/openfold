@@ -194,9 +194,9 @@ class EvoformerBlockCore(nn.Module):
         m = m + self.msa_transition(
             m, mask=msa_trans_mask, chunk_size=chunk_size
         )
-        z = z + self.outer_product_mean(
-            m, mask=msa_mask, chunk_size=chunk_size
-        )
+        # z = z + self.outer_product_mean(
+        #     m, mask=msa_mask, chunk_size=chunk_size
+        # )
         z = z + self.ps_dropout_row_layer(self.tri_mul_out(z, mask=pair_mask))
         z = z + self.ps_dropout_row_layer(self.tri_mul_in(z, mask=pair_mask))
         z = z + self.ps_dropout_row_layer(
@@ -261,6 +261,12 @@ class EvoformerBlock(nn.Module):
             eps=eps,
         )
 
+        self.outer_product_mean = OuterProductMean(
+            c_m,
+            c_z,
+            c_hidden_opm,
+        )
+
     def forward(self,
         m: torch.Tensor,
         z: torch.Tensor,
@@ -269,6 +275,9 @@ class EvoformerBlock(nn.Module):
         chunk_size: Optional[int] = None,
         _mask_trans: bool = True,
     ) -> Tuple[torch.Tensor, torch.Tensor]:
+        z = z + self.outer_product_mean(
+            m, mask=msa_mask, chunk_size=chunk_size
+        )
         m = m + self.msa_dropout_layer(
             self.msa_att_row(m, z=z, mask=msa_mask, chunk_size=chunk_size)
         )
@@ -344,6 +353,12 @@ class ExtraMSABlock(nn.Module):
             eps=eps,
         )
 
+        self.outer_product_mean = OuterProductMean(
+            c_m,
+            c_z,
+            c_hidden_opm,
+        )
+
     def forward(self,
         m: torch.Tensor,
         z: torch.Tensor,
@@ -361,6 +376,10 @@ class ExtraMSABlock(nn.Module):
                 m1 += m2
 
             return m1
+
+        z = z + self.outer_product_mean(
+            m, mask=msa_mask, chunk_size=chunk_size
+        )
         
         m = add(m, self.msa_dropout_layer(
             self.msa_att_row(

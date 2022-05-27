@@ -333,7 +333,7 @@ def get_translation_dict(model, is_multimer=False):
             col_att_name: msa_col_att_params,
             "msa_transition": MSATransitionParams(b.core.msa_transition),
             "outer_product_mean": 
-                OuterProductMeanParams(b.core.outer_product_mean),
+                OuterProductMeanParams(b.outer_product_mean),
             "triangle_multiplication_outgoing": 
                 TriMulOutParams(b.core.tri_mul_out),
             "triangle_multiplication_incoming": 
