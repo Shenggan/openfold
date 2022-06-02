@@ -133,7 +133,7 @@ def from_pdb_string(pdb_str: str, chain_id: Optional[str] = None) -> Protein:
             aatype.append(restype_idx)
             atom_positions.append(pos)
             atom_mask.append(mask)
-            residue_index.append(mask)
+            residue_index.append(res.id[1])
             chain_ids.append(chain.id)
             b_factors.append(res_b_factors)
 

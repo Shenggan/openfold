@@ -246,7 +246,7 @@ class InputEmbedderMultimer(nn.Module):
             )
 
             rel_chain = torch.nn.functional.one_hot(
-                final_rel_chain,
+                final_rel_chain.long(),
                 2 * max_rel_chain + 2,
             )
 
