@@ -247,7 +247,7 @@ def get_translation_dict(model, is_multimer=False):
     )
 
     IPAParams = lambda ipa: {
-        "q_scalar_projection": LinearParams(ipa.linear_q),
+        "q_scalar": LinearParams(ipa.linear_q),
         "kv_scalar": LinearParams(ipa.linear_kv),
         "q_point_local": LinearParams(ipa.linear_q_points.linear),
         "kv_point_local": LinearParams(ipa.linear_kv_points.linear),

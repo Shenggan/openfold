@@ -406,7 +406,7 @@ config = mlc.ConfigDict(
                 "no_transition_layers": 1,
                 "no_resnet_blocks": 2,
                 "no_angles": 7,
-                "trans_scale_factor": 10,
+                "trans_scale_factor": 20, # 10 for mono
                 "epsilon": eps,  # 1e-12,
                 "inf": 1e5,
             },
