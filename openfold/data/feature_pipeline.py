@@ -78,7 +78,8 @@ def np_example_to_features(
 ):
     np_example = dict(np_example)
    
-    num_res = int(np_example["seq_length"][0])
+    # num_res = int(np_example["seq_length"][0])
+    num_res = int(np_example["seq_length"])
     cfg, feature_names = make_data_config(config, mode=mode, num_res=num_res)
 
     if "deletion_matrix_int" in np_example:

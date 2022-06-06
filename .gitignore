@@ -1,0 +1,10 @@
+build
+__pycache__
+*.egg-info
+*.fasta
+*.pkl
+alignments
+data
+*.pdb
+
+openfold/resources/stereo_chemical_props.txt
