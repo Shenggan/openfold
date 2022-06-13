@@ -277,7 +277,7 @@ def get_translation_dict(model, is_multimer=False):
         },
         "v_scalar_projection": {
             "weights": LinearWeightMultimer(
-                ipa.linear_k.weight,
+                ipa.linear_v.weight,
             ),
         },
         "q_point_projection": PointProjectionParams(

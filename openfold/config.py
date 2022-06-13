@@ -403,7 +403,7 @@ config = mlc.ConfigDict(
                 "no_v_points": 8,
                 "dropout_rate": 0.1,
                 "no_blocks": 8,
-                "no_transition_layers": 1,
+                "no_transition_layers": 3,
                 "no_resnet_blocks": 2,
                 "no_angles": 7,
                 "trans_scale_factor": 20, # 10 for mono
